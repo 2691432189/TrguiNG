@@ -16,7 +16,7 @@ jobs:
     steps:
       - name: Download dbip database
         run: wget -nv -O- "https://download.db-ip.com/free/dbip-country-lite-2024-10.mmdb.gz" | zcat > dbip.mmdb
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: dbip
           path: "dbip.mmdb"
@@ -102,7 +102,7 @@ jobs:
           echo ${{ steps.tauri_build.outputs.artifactPaths }}
 
       # The artifacts output can now be used to upload the artifacts
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.platform.rust_target }}
           path: "${{ join(fromJSON(steps.tauri_build.outputs.artifactPaths), '\n') }}"
@@ -116,7 +116,7 @@ jobs:
           zip -9 -r "trguing-web-$GIT_VERSION.zip" ./* -x create\* -x \*.map -x \*flag-icons\*
           echo "ZIPFILE=trguing-web-$GIT_VERSION.zip" >> $GITHUB_OUTPUT
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: matrix.platform.os == 'ubuntu-latest'
         with:
           name: build web
